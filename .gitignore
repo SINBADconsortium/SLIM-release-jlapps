@@ -1,0 +1,25 @@
+# Junk
+*.DS_Store
+*.rsfproj
+.sconsign.dblite
+
+# installation-created files
+environment.sh
+environment.csh
+
+# data files
+*.jld
+*.mex*
+*.rsf*
+*.su*
+*.odn*
+*.mat
+*.dat
+*_log
+*.log
+*~
+
+# installs
+Julia
+Miniconda2
+downloads

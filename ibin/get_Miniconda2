@@ -1,0 +1,34 @@
+#!/bin/bash
+mtar=https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+
+which curl 1>/dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo FATAL ERROR: no curl executable found. Download and install Julia manually.
+    exit 1
+fi
+
+#set -x
+test -d $SLIM_JLAPPS/downloads || mkdir $SLIM_JLAPPS/downloads
+cd $SLIM_JLAPPS/downloads || exit 1
+
+rm -rf Miniconda2-* $SLIM_JLAPPS/Miniconda2
+curl $mtar > Miniconda2-latest-Linux-x86_64.sh
+if [ $? -ne 0 ]; then
+    echo FATAL ERROR: transfer failed. Try again.
+    exit 1
+fi
+if [ ! -d $dver ]; then
+    echo FATAL ERROR: name of the directory in th tarball has changed.
+    echo ... Download and install Julia manually.
+    exit 1
+fi
+
+test -e $SLIM_JLAPPS/Miniconda2 && rm -rf $SLIM_JLAPPS/Miniconda2
+bash ./Miniconda2-latest-Linux-x86_64.sh -b -p $SLIM_JLAPPS/Miniconda2
+export PYTHON=$SLIM_JLAPPS/Miniconda2/bin/python
+export PYTHONHOME=$SLIM_JLAPPS/Miniconda2
+$PYTHONHOME/bin/conda update --yes --quiet --all
+
+echo PYTHON=$SLIM_JLAPPS/Miniconda2/bin/python
+echo PYTHONHOME=$SLIM_JLAPPS/Miniconda2
+$PYTHON --version

@@ -1,0 +1,7 @@
+#!/usr/bin/env julia
+
+if VERSION < v"0.6"
+    println("FATAL ERROR: Julia version ($VERSION) is too old")
+else
+    println("Julia version is sufficient ($VERSION)")
+end

@@ -1,0 +1,37 @@
+#!/usr/bin/env julia
+
+function install_pkg(pname::String,purl::String)
+    flag=try
+        println("Checking for $pname")
+        Pkg.installed(pname)
+    end
+    if typeof(flag)==Void
+        println("...Installing $pname from $purl")
+        Pkg.clone(purl)
+    end
+end
+
+function install_pkg(pname::String)
+    flag=try
+        println("Checking for $pname")
+        Pkg.installed(pname)
+    end
+    if typeof(flag)==Void
+        println("...Installing $pname")
+        Pkg.add(pname)
+    end
+end
+
+#display(Pkg.installed())
+Pkg.resolve()
+Pkg.update()
+Pkg.resolve()
+install_pkg("JOLI","https://github.com/slimgroup/JOLI.jl.git")
+#install_pkg("Seismic","https://github.com/SeismicJulia/Seismic.jl.git")
+install_pkg("SeisIO","https://github.com/slimgroup/SeisIO.jl.git")
+install_pkg("opesciSLIM","git@github.com:SINBADconsortium/opesciSLIM.git")
+install_pkg("PyPlot")
+install_pkg("MAT")
+install_pkg("YAML")
+install_pkg("JLD")
+

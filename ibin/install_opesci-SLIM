@@ -1,0 +1,5 @@
+#!/bin/bash
+
+test -n "$SLIM_JLAPPS" || echo FATAL ERROR: SLIM_JLAPPS environment is missing
+test -n "$SLIM_JLAPPS" || exit 1
+echo "Obsolete: done now with install_jlPKGs script"

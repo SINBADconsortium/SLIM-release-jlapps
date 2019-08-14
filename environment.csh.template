@@ -1,0 +1,63 @@
+##### set the paths to the homes of SLIM-release-comp/apps
+# define the path to SLIM-release-comp if installed, or leave it as it is
+setenv SLIM_COMP absolute_path_to_SLIM-release-comp
+# define the path to SLIM-release-apps
+setenv SLIM_JLAPPS absolute_path_to_SLIM-release-jlapps
+# define the path to private copy (if other then SLIM_JLAPPS) of SLIM-release-apps
+setenv SLIM_JLAPPS_RUNS $SLIM_JLAPPS
+# define the path to the home of Julia installation if not installed using get_Julia
+setenv JULIAHOME $SLIM_JLAPPS/Julia
+##### DO NOT MODIFY PAST THIS LINE
+
+# set PATH environment
+setenv PATH $SLIM_JLAPPS/bin:$SLIM_JLAPPS/ibin:$JULIAHOME/bin:$SLIM_JLAPPS/Miniconda2/bin:$SLIM_COMP/external/bin:$HOME/.local/bin:$PATH
+rehash
+
+# set library paths for dynamic compile-time linker
+if ( $?LD_LIBRARY_PATH ) then
+	setenv LD_LIBRARY_PATH $SLIM_COMP/tools/transforms/CurveLab-2.1.2-SLIM/libsos:$SLIM_COMP/external/lib64:$SLIM_COMP/external/lib:$LD_LIBRARY_PATH
+else
+	setenv LD_LIBRARY_PATH $SLIM_COMP/tools/transforms/CurveLab-2.1.2-SLIM/libsos:$SLIM_COMP/external/lib64:$SLIM_COMP/external/lib
+endif
+if ( $?LD_RUN_PATH ) then
+	setenv LD_RUN_PATH $SLIM_COMP/tools/transforms/CurveLab-2.1.2-SLIM/libsos:$SLIM_COMP/external/lib64:$SLIM_COMP/external/lib:$LD_RUN_PATH
+else
+	setenv LD_RUN_PATH $SLIM_COMP/tools/transforms/CurveLab-2.1.2-SLIM/libsos:$SLIM_COMP/external/lib64:$SLIM_COMP/external/lib
+endif
+
+# set Python
+if ( -e $SLIM_JLAPPS/Miniconda2/bin/python ) then
+    setenv PYTHON $SLIM_JLAPPS/Miniconda2/bin/python
+else
+    setenv PYTHON $SLIM_COMP/external/bin/python
+endif
+if ( $?PYTHONPATH ) then
+	setenv PYTHONPATH $SLIM_JLAPPS/Miniconda2/lib:$SLIM_COMP/external/lib64:$SLIM_COMP/external/lib:$SLIM_COMP/external/pylib:$PYTHONPATH
+else
+	setenv PYTHONPATH $SLIM_JLAPPS/Miniconda2/lib:$SLIM_COMP/external/lib64:$SLIM_COMP/external/lib:$SLIM_COMP/external/pylib
+endif
+if ( $?MANPATH ) then
+	setenv MANPATH $SLIM_JLAPPS/Miniconda2/share/man:$SLIM_COMP/external/man:$SLIM_COMP/external/share/man:$MANPATH
+else
+	setenv MANPATH $SLIM_JLAPPS/Miniconda2/share/man:$SLIM_COMP/external/man:$SLIM_COMP/external/share/man:`manpath`
+endif
+
+# add default JULIA_LOAD_PATH
+if ( $?JULIA_LOAD_PATH ) then
+    test -d $SLIM_JLAPPS/tools/jlmodules && setenv JULIA_LOAD_PATH $SLIM_JLAPPS/tools/jlmodules:$JULIA_LOAD_PATH
+else
+    test -d $SLIM_JLAPPS/tools/jlmodules && setenv JULIA_LOAD_PATH $SLIM_JLAPPS/tools/jlmodules
+endif
+
+# add devito settings
+setenv DEVITO_OPENMP 1
+setenv DEVITO_ARCH gcc
+
+# MADAGASCAR specific setup
+setenv RSFROOT $SLIM_COMP/external
+# Path for binary data files part of RSF datasets
+if ( ! $?DATAPATH ) then
+	setenv DATAPATH $SLIM_JLAPPS/tmp/
+endif
+test -d $DATAPATH || mkdir -p $DATAPATH
+test -d $DATAPATH || echo "ERROR: Problem creating $DATAPATH"

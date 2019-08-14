@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo %%% Updating installed packages
+if [ -d $SLIM_JLAPPS/Miniconda2 ]; then
+    conda update --yes --quiet conda
+    conda update --yes --quiet --all
+    conda clean --yes --quiet --all
+fi
+outdated=$(pip list --user --format legacy -o | cut -d ' ' -f1)
+test -z "$outdated" || pip install --user -U $outdated
+
+echo %%% Installing needed core packages
+pip install --user -U scipy
+pip install --user -U PySide
+pip install --user -U PyYAML
+pip install --user -U matplotlib
+
+echo %%% Installing needed SLIM packages
+pip install --user -U git+https://github.com/opesci/devito.git@v3.0.3
+

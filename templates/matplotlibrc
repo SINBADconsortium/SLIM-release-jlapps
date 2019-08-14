@@ -1,0 +1,5 @@
+#backend      : agg
+backend      : Qt4Agg
+# If you are using the Qt4Agg backend, you can choose here
+#backend.qt4 : PyQt4        # PyQt4 | PySide
+backend.qt4 : PySide

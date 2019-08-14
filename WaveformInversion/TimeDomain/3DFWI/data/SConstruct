@@ -1,0 +1,18 @@
+import os
+from rsf.proj import *
+
+########################################################################
+# RETRIEVE DATA
+########################################################################
+# define SLIM FTP server information
+FTPserver = {
+        'server': 'ftp.slim.gatech.edu',
+        'login': 'ftp',
+        'password':''}
+
+loc   = os.path.join('SoftwareRelease','WaveformInversion.jl','3DFWI')
+files = ['overthrust_3D_initial_model.h5','overthrust_3D_true_model.h5'];
+
+# fetch data from FTP server
+for elm in files:
+        Fetch(elm,loc,FTPserver)
