@@ -84,4 +84,4 @@
 ### 7.3 WaveformInversion/TimeDomain
  Time-domain full-waveform inversion (2D & 3D subfolders)
 ## 8 SUPPORT
- You may contact SLIM's developers of SINBAD software via issue tracker for this repository. We do not have resources to acctively support public version of our software. However, we will try to answert the questions as much as possible.
+ You may contact SLIM's developers of SINBAD software via issue tracker for this repository. We do not have resources to actively support public version of our software. However, we will try to answer the questions as much as possible.
