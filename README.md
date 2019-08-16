@@ -1,4 +1,4 @@
-# Julia-software repository for SLIM software release to SINBAD consorti
+# Public legacy release of Julia-software repository for SLIM software release to SINBAD consortium
 ## 1 DESCRIPTION
  This is the repository for SLIM's software release, written in Julia
  language, for SINBAD consortium members. The release contains our
